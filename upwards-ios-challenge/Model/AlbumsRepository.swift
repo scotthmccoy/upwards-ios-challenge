@@ -28,11 +28,18 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     var albumsPublisher: Published<[Album]>.Publisher {$albums}
     
     init() {
-        albums = [
-            Album(id: "abc123", name: "My Album 1", artistName: "ArtistName", releaseDate: Date()),
-            Album(id: "abc123", name: "My Album 2", artistName: "ArtistName", releaseDate: Date()),
-            Album(id: "abc123", name: "My Album 3", artistName: "ArtistName", releaseDate: Date()),
-            Album(id: "abc123", name: "My Album 4", artistName: "ArtistName", releaseDate: Date())
-        ]
+        AppLog()
+        
+        let network = Network(sessionConfig: URLSessionConfiguration.default)
+        let iTunesApi = ITunesAPI(network: network)
+        
+        iTunesApi.getTopAlbums { result in
+            guard let albumFeed = result.getSuccessOrLogError() else {
+                return
+            }
+            
+            AppLog("albumFeed: \(albumFeed)")
+            self.albums = albumFeed.feed.results
+        }
     }
 }
