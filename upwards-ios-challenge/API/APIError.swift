@@ -8,5 +8,8 @@
 import Foundation
 
 enum APIError: Error {
-    case custom(String)
+    case invalidUrl(String)
+    case noResponse
+    case decodingError(Error)
+    case invalidDate(String)
 }

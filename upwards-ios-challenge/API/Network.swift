@@ -22,12 +22,14 @@ final class Network: NSObject, Networking, URLSessionDelegate {
         configureDecoder()
     }
     
-    func requestObject<T: Decodable>(_ request: Request, completion: @escaping (Result<T, Error>) -> ()) {
+    func requestObject<T: Decodable>(_ request: Request, completion: @escaping (Result<T, APIError>) -> ()) {
         requestData(request) { res in
             completion(
                 res.flatMap { data in
                     Result {
                         try self.decoder.decode(T.self, from: data)
+                    }.mapError {
+                        APIError.decodingError($0)
                     }
                 }
             )
@@ -36,7 +38,7 @@ final class Network: NSObject, Networking, URLSessionDelegate {
     
     func requestData(
         _ request: Request,
-        completion: @escaping (Result<Data, Error>) -> ()
+        completion: @escaping (Result<Data, APIError>) -> ()
     ) {
         
         guard let urlRequest = request.asURLRequest().getSuccessOrLogError() else {
@@ -53,7 +55,7 @@ final class Network: NSObject, Networking, URLSessionDelegate {
                 let d = data,
                 (200..<300) ~= httpResponse.statusCode
             else {
-                completion(.failure(APIError.custom("Failed to api response")))
+                completion(.failure(APIError.noResponse))
                 return
             }
             
@@ -62,6 +64,7 @@ final class Network: NSObject, Networking, URLSessionDelegate {
         task.resume()
     }
     
+    // TODO: This could probably be folded into Codable's existing date formatting
     private func configureDecoder() {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
@@ -77,7 +80,7 @@ final class Network: NSObject, Networking, URLSessionDelegate {
                 return date
             }
             
-            throw APIError.custom("Invalid date")
+            throw APIError.invalidDate(dateStr)
         })
     }
 }

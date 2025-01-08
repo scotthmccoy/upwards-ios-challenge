@@ -17,7 +17,10 @@ final class ITunesAPI {
         self.network = network
     }
     
-    func getTopAlbums(limit: Int = 10, completion: @escaping (Result<AlbumFeed, Error>) -> ())  {
+    func getTopAlbums(
+        limit: Int = 10,
+        completion: @escaping (Result<AlbumFeed, APIError>) -> ()
+    )  {
         let request = APIRequest(url: "\(baseURL)/api/v2/us/music/most-played/\(limit)/albums.json")
         network.requestObject(request, completion: completion)
     }

@@ -18,14 +18,14 @@ struct APIRequest: Request {
     func asURLRequest() -> Result<URLRequest, APIError> {
         
         guard let apiURL = URL(string: url) else {
-            return .failure(APIError.custom("Invalid URL \(url)"))
+            return .failure(.invalidUrl(url))
         }
         
         var urlComponents = URLComponents(url: apiURL, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = params
         
         guard let requestURL = urlComponents?.url else {
-            return .failure(APIError.custom("Invalid url"))
+            return .failure(.invalidUrl(url))
         }
 
         var request = URLRequest(url: requestURL)

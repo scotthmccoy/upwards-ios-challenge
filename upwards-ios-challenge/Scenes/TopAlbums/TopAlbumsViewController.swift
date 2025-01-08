@@ -54,7 +54,7 @@ final class TopAlbumsViewController: UIViewController {
                     self?.albums = data.feed.results
                 }
             case .failure(let err):
-                debugPrint(err)
+                AppLog("error: \(err)")
             }
         }
     }
@@ -80,6 +80,6 @@ extension TopAlbumsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension TopAlbumsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        debugPrint(albums[indexPath.row])
+        AppLog("indexPath: \(indexPath), album: \(albums[indexPath.row])")
     }
 }
