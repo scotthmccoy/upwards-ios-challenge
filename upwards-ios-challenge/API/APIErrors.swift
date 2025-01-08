@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum APIErrors: LocalizedError {
+enum APIError: Error {
     case custom(String)
 }

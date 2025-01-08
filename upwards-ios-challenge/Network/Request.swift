@@ -19,5 +19,5 @@ enum HTTPMethod: String {
 }
 
 protocol Request: CustomStringConvertible {
-    func asURLRequest() throws -> URLRequest
+    func asURLRequest() -> Result<URLRequest, APIError>
 }

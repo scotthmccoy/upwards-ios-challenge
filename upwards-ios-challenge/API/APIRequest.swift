@@ -15,16 +15,17 @@ struct APIRequest: Request {
     var params: [URLQueryItem]?
     var body: Data? = nil
 
-    func asURLRequest() throws -> URLRequest {
+    func asURLRequest() -> Result<URLRequest, APIError> {
+        
         guard let apiURL = URL(string: url) else {
-            throw APIErrors.custom("Invalid URL \(url)")
+            return .failure(APIError.custom("Invalid URL \(url)"))
         }
         
         var urlComponents = URLComponents(url: apiURL, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = params
         
         guard let requestURL = urlComponents?.url else {
-            throw APIErrors.custom("Invalid url")
+            return .failure(APIError.custom("Invalid url"))
         }
 
         var request = URLRequest(url: requestURL)
@@ -34,7 +35,7 @@ struct APIRequest: Request {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = body
 
-        return request
+        return .success(request)
     }
     
     var description: String {

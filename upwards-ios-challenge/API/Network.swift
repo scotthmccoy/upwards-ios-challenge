@@ -8,7 +8,7 @@
 import Foundation
 import os.log
 
-fileprivate let general = OSLog(subsystem: "com.upwards.challenge", category: "general")
+
 
 final class Network: NSObject, Networking, URLSessionDelegate {
     
@@ -34,25 +34,32 @@ final class Network: NSObject, Networking, URLSessionDelegate {
         }
     }
     
-    func requestData(_ request: Request, completion: @escaping (Result<Data, Error>) -> ()) {
-        let task = session.dataTask(with: try! addLog(request).asURLRequest()) { (data, res, err) in
+    func requestData(
+        _ request: Request,
+        completion: @escaping (Result<Data, Error>) -> ()
+    ) {
+        
+        guard let urlRequest = request.asURLRequest().getSuccessOrLogError() else {
+            return
+        }
+        
+        AppLog("urlRequest: \(urlRequest)")
+        
+        let task = session.dataTask(
+            with: urlRequest
+        ) { (data, res, err) in
             guard
                 let httpResponse = res as? HTTPURLResponse,
                 let d = data,
                 (200..<300) ~= httpResponse.statusCode
             else {
-                completion(.failure(APIErrors.custom("Failed to api response")))
+                completion(.failure(APIError.custom("Failed to api response")))
                 return
             }
             
             completion(.success(d))
         }
         task.resume()
-    }
-
-    private func addLog(_ request: Request) -> Request {
-        os_log("%s", log: general, type: .debug, request.description)
-        return request
     }
     
     private func configureDecoder() {
@@ -70,7 +77,7 @@ final class Network: NSObject, Networking, URLSessionDelegate {
                 return date
             }
             
-            throw APIErrors.custom("Invalid date")
+            throw APIError.custom("Invalid date")
         })
     }
 }
