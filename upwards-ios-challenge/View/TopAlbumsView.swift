@@ -17,26 +17,47 @@ struct TopAlbumsView: View {
     ]
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: columns) {
+        ScrollView() {
+            LazyVGrid(
+               columns: [
+                   GridItem(.flexible()),
+                   GridItem(.flexible())
+               ],
+               spacing: 10
+            ) {
                 ForEach(topAlbumsViewModel.albums, id: \.self) { album in
                     AlbumCellView(album: album)
                 }
             }
-            .background(Color("Background"))
+            .padding(10)
         }
+        .background(Color("Background"))
         .navigationBarTitle("Top Albums", displayMode: .inline)
-        .toolbarBackground(Color("NavBar"))
+        
+        // Nav Bar Text Color
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        
+        // Nav Bar Background color
+        .toolbarBackground(
+            Color("NavBar"),
+            for: .navigationBar
+        )
+        .toolbarBackground(
+            .visible,
+            for: .navigationBar
+        )
     }
 }
 
 
 #Preview {
-    TopAlbumsView(
-        topAlbumsViewModel: TopAlbumsViewModel(
-            albumsRepository: AlbumsRepository(
-                albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.hardCoded)
+    NavigationStack{
+        TopAlbumsView(
+            topAlbumsViewModel: TopAlbumsViewModel(
+                albumsRepository: AlbumsRepository(
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.hardCoded)
+                )
             )
         )
-    )
+    }
 }

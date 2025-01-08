@@ -58,7 +58,10 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                     Album(id: "abc123", name: "My Album 1", artistName: "ArtistName", releaseDate: Date()),
                     Album(id: "abc123", name: "My Album 2", artistName: "ArtistName", releaseDate: Date()),
                     Album(id: "abc123", name: "My Album 3", artistName: "ArtistName", releaseDate: Date()),
-                    Album(id: "abc123", name: "My Album 4", artistName: "ArtistName", releaseDate: Date())
+                    Album(id: "abc123", name: "My Album 4", artistName: "ArtistName", releaseDate: Date()),
+                    Album(id: "abc123", name: "My Album 5", artistName: "ArtistName", releaseDate: Date()),
+                    Album(id: "abc123", name: "My Album 6", artistName: "ArtistName", releaseDate: Date()),
+                    Album(id: "abc123", name: "My Album 7", artistName: "ArtistName", releaseDate: Date())
                 ])
         }
         

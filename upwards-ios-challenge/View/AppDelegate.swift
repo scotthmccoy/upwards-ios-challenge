@@ -13,7 +13,7 @@ struct UpwardsChallengeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack {
                 TopAlbumsView()
             }
         }
