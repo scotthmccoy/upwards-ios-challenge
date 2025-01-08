@@ -11,13 +11,22 @@ struct TopAlbumsView: View {
     
     @StateObject var topAlbumsViewModel = TopAlbumsViewModel()
     
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
-        ForEach(topAlbumsViewModel.albums, id: \.self) { album in
-            Text("album: \(album.name)")
-            
+        VStack {
+            LazyVGrid(columns: columns) {
+                ForEach(topAlbumsViewModel.albums, id: \.self) { album in
+                    AlbumCellView(album: album)
+                }
+            }
+            .background(Color("Background"))
         }
-        //.background(Color("CellBackground"))
-        //.background(Color("NavBar"))
+        .navigationBarTitle("Top Albums", displayMode: .inline)
+        .toolbarBackground(Color("NavBar"))
     }
 }
 

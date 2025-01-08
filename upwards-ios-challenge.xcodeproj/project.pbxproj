@@ -13,6 +13,7 @@
 		57F720842D2E168C00E79626 /* TopAlbumsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720832D2E168C00E79626 /* TopAlbumsViewModel.swift */; };
 		57F720872D2E179200E79626 /* AlbumsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720862D2E179200E79626 /* AlbumsRepository.swift */; };
 		57F7208F2D2E234100E79626 /* AlbumsRepositoryDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F7208E2D2E234100E79626 /* AlbumsRepositoryDataProvider.swift */; };
+		57F720912D2E35DA00E79626 /* AlbumCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720902D2E35DA00E79626 /* AlbumCellView.swift */; };
 		CED2A3DA26EFA7DD0093C1F3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3D926EFA7DD0093C1F3 /* Networking.swift */; };
 		CED2A3DE26EFA89C0093C1F3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3DD26EFA89C0093C1F3 /* Request.swift */; };
 		CED2A3E426EFA9610093C1F3 /* ITunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */; };
@@ -54,6 +55,7 @@
 		57F720882D2E1E0100E79626 /* mockup.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mockup.jpeg; sourceTree = "<group>"; };
 		57F720892D2E1E0100E79626 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		57F7208E2D2E234100E79626 /* AlbumsRepositoryDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRepositoryDataProvider.swift; sourceTree = "<group>"; };
+		57F720902D2E35DA00E79626 /* AlbumCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellView.swift; sourceTree = "<group>"; };
 		CED2A3D926EFA7DD0093C1F3 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		CED2A3DD26EFA89C0093C1F3 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAPI.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				CEE8744926E818C000A269DA /* AppDelegate.swift */,
 				57F720802D2E160F00E79626 /* TopAlbumsView.swift */,
+				57F720902D2E35DA00E79626 /* AlbumCellView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				CED2A3EB26EFB7210093C1F3 /* APIError.swift in Sources */,
 				CEE8744A26E818C000A269DA /* AppDelegate.swift in Sources */,
 				57F720812D2E160F00E79626 /* TopAlbumsView.swift in Sources */,
+				57F720912D2E35DA00E79626 /* AlbumCellView.swift in Sources */,
 				CED2A3E826EFABD10093C1F3 /* APIRequest.swift in Sources */,
 				57F7207D2D2E0F6B00E79626 /* AppLog.swift in Sources */,
 				57F720872D2E179200E79626 /* AlbumsRepository.swift in Sources */,
@@ -548,7 +552,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C25K9LS5G2;
 				INFOPLIST_FILE = "upwards-ios-challenge/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -568,7 +572,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C25K9LS5G2;
 				INFOPLIST_FILE = "upwards-ios-challenge/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
