@@ -12,7 +12,8 @@ import Combine
 class TopAlbumsViewModel: ObservableObject {
     
     @Published var albums: [Album] = []
-    var visible = false
+    @Published var sortOrders = AlbumSortOrder.allCases
+    @Published var albumSortOrder = AlbumSortOrder.title
     
     
     private var albumsRepository: AlbumsRepositoryProtocol
@@ -33,4 +34,8 @@ class TopAlbumsViewModel: ObservableObject {
         }
     }
     
+    func menuTapped(albumSortOrder: AlbumSortOrder) {
+        AppLog("albumSortOrder: \(albumSortOrder)")
+        self.albumSortOrder = albumSortOrder
+    }
 }

@@ -47,8 +47,38 @@ struct TopAlbumsView: View {
             .visible,
             for: .navigationBar
         )
+        
+        // Actual toolbar
+        .toolbar {
+            HStack {
+                btnSort
+            }
+        }
     }
-}
+    
+    @State var sortPopOverIsPresented = false
+    var btnSort : some View {
+        // NOTE: I'd rather use a picker but this is much easier to style
+        VStack {
+            Menu {
+                Text("Sort by...")
+                ForEach(AlbumSortOrder.allCases, id:\.self) { sortOrder in
+                    Button(action: {
+                        topAlbumsViewModel.menuTapped(albumSortOrder: sortOrder)
+                    }) {
+                        Text(sortOrder.description)
+                    }
+                    
+                }
+            } label: {
+                Image(systemName: "text.alignleft")
+                    .resizable()
+                    .padding(6)
+                    .frame(width: 30, height: 30)
+            }.menuStyle(.borderlessButton)
+        }
+
+    }}
 
 
 #Preview {
