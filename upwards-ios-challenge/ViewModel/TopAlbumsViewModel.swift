@@ -24,7 +24,12 @@ class TopAlbumsViewModel: ObservableObject {
         self.albumsRepository = albumsRepository
         
         albumsSubscription = albumsRepository.albumsPublisher.sink { newValue in
-            self.albums = newValue
+            
+            Task {
+                await MainActor.run {
+                    self.albums = newValue
+                }
+            }
         }
     }
     

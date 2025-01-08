@@ -27,19 +27,17 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     var albumsPublished: Published<[Album]> {_albums}
     var albumsPublisher: Published<[Album]>.Publisher {$albums}
     
-    init() {
+    init(
+        albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol = AlbumsRepositoryDataProvider(.live)
+    ) {
         AppLog()
         
-        let network = Network(sessionConfig: URLSessionConfiguration.default)
-        let iTunesApi = ITunesAPI(network: network)
-        
-        iTunesApi.getTopAlbums { result in
-            guard let albumFeed = result.getSuccessOrLogError() else {
+        Task {
+            guard let albums = await albumsRepositoryDataProvider.get().getSuccessOrLogError() else {
                 return
             }
             
-            AppLog("albumFeed: \(albumFeed)")
-            self.albums = albumFeed.feed.results
+            self.albums = albums
         }
     }
 }
