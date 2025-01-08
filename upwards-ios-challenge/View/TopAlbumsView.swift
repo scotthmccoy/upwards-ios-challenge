@@ -19,11 +19,12 @@ struct TopAlbumsView: View {
     var body: some View {
         ScrollView() {
             LazyVGrid(
-               columns: [
-                   GridItem(.flexible()),
-                   GridItem(.flexible())
-               ],
-               spacing: 10
+                columns: [
+                    GridItem(.flexible(), alignment: .top),
+                    GridItem(.flexible(), alignment: .top)
+                ],
+                alignment: .leading,
+                spacing: 10
             ) {
                 ForEach(topAlbumsViewModel.albums, id: \.self) { album in
                     AlbumCellView(album: album)

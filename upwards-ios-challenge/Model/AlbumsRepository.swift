@@ -38,6 +38,7 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
             }
             
             self.albums = albums
+            AppLog("albums: \(albums)")
         }
     }
 }

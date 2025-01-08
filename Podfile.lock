@@ -1,0 +1,20 @@
+PODS:
+  - Scootys-UI-Testing (1.0.2)
+  - Scootys-Unit-Testing (1.0.5)
+
+DEPENDENCIES:
+  - Scootys-UI-Testing
+  - Scootys-Unit-Testing
+
+SPEC REPOS:
+  trunk:
+    - Scootys-UI-Testing
+    - Scootys-Unit-Testing
+
+SPEC CHECKSUMS:
+  Scootys-UI-Testing: 03032eb838552fd10d744839739562e4e9992e6c
+  Scootys-Unit-Testing: 3330acfe0fe0eb1cafeaf35f285d397fabded2a3
+
+PODFILE CHECKSUM: 0cd882947d8b8400199c6952ca14dfd085f96252
+
+COCOAPODS: 1.15.2
