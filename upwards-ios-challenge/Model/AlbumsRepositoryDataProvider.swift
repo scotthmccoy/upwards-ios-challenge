@@ -61,7 +61,7 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                     Album(
                         id: "1787022393",
                         name: "DeBÍ TiRAR MáS FOToS",
-                        artworkUrl: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/90/5e/7e/905e7ed5-a8fa-a8f3-cd06-0028fdf3afaa/199066342442.jpg/100x100bb.jpg"),
+                        artworkUrl: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/90/5e/7e/905e7ed5-a8fa-a8f3-cd06-0028fdf3afaa/199066342442.jpg/100x100bb.jpg-BAD"),
                         artistName: "Bad Bunny",
                         releaseDate: Date(
                             timeIntervalSinceReferenceDate: 757728000.0

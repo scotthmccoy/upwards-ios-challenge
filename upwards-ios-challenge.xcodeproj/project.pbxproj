@@ -170,6 +170,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		57F7209A2D3076CC00E79626 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CEE8745226E818C500A269DA /* Assets.xcassets */,
+				CEE8745426E818C500A269DA /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		6D7BF40796677D5D7A4B7098 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,8 +262,7 @@
 				57F720822D2E167800E79626 /* ViewModel */,
 				57F7208B2D2E1EB300E79626 /* Extensions */,
 				57F7207B2D2E0F6300E79626 /* Utility */,
-				CEE8745226E818C500A269DA /* Assets.xcassets */,
-				CEE8745426E818C500A269DA /* LaunchScreen.storyboard */,
+				57F7209A2D3076CC00E79626 /* Assets */,
 				CEE8745726E818C500A269DA /* Info.plist */,
 			);
 			path = "upwards-ios-challenge";

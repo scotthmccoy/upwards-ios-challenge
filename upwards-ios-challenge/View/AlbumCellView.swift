@@ -14,9 +14,14 @@ struct AlbumCellView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-
-            CachedAsyncImage(url: album.artworkUrl) { result in
-                result.image?.resizable()
+            CachedAsyncImage(url: album.artworkUrl) { phase in
+                switch phase {
+                    case .success(let image):
+                        image.resizable()
+                    default:
+                        Image("Loading")
+                            .resizable()
+                }
             }
             .scaledToFit()
                     
