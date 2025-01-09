@@ -21,7 +21,7 @@ final class ITunesAPI {
     
     func getTopAlbums(
         limit: Int = 10,
-        completion: @escaping (Result<AlbumFeed, APIError>) -> ()
+        completion: @escaping (Result<APIResponseDataObject, APIError>) -> ()
     )  {
         let request = APIRequest(url: "\(baseURL)/api/v2/us/music/most-played/\(limit)/albums.json")
         
