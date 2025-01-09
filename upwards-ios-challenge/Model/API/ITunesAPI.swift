@@ -7,9 +7,11 @@
 
 import Foundation
 
-let baseURL = "https://rss.applemarketingtools.com"
-
+// The API sadly only takes a limit arg, not a sort-ordering one.
+// https://rss.applemarketingtools.com/
 final class ITunesAPI {
+
+    let baseURL = "https://rss.applemarketingtools.com"
     
     private let network: Networking
     
@@ -22,6 +24,10 @@ final class ITunesAPI {
         completion: @escaping (Result<AlbumFeed, APIError>) -> ()
     )  {
         let request = APIRequest(url: "\(baseURL)/api/v2/us/music/most-played/\(limit)/albums.json")
-        network.requestObject(request, completion: completion)
+        
+        network.requestObject(
+            request,
+            completion: completion
+        )
     }
 }

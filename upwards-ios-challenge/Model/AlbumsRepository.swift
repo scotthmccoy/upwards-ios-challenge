@@ -15,6 +15,7 @@ protocol AlbumsRepositoryProtocol {
     var albums: [Album] { get }
     var albumsPublished: Published<[Album]> { get }
     var albumsPublisher: Published<[Album]>.Publisher { get }
+    var albumSortOrder: AlbumSortOrder {get set}
 }
 
 
@@ -27,11 +28,24 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     var albumsPublished: Published<[Album]> {_albums}
     var albumsPublisher: Published<[Album]>.Publisher {$albums}
     
+    var albumSortOrder = AlbumSortOrder.title {
+        didSet {
+            albums = sort(albums: albums)
+        }
+    }
+    
+    private let albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol
+    
     init(
         albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol = AlbumsRepositoryDataProvider(.live)
     ) {
         AppLog()
-        
+        self.albumsRepositoryDataProvider = albumsRepositoryDataProvider
+        fetchAlbums()
+    }
+
+
+    func fetchAlbums() {
         Task {
             guard let albums = await albumsRepositoryDataProvider.get().getSuccessOrLogError() else {
                 return
@@ -39,6 +53,17 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
             
             self.albums = albums
             AppLog("albums: \(albums)")
+        }
+    }
+    
+    // Sadly the API doesn't support sorting, so we have to sort the objects ourselves
+    func sort(albums: [Album]) -> [Album] {
+        
+        switch albumSortOrder {
+            case .title:
+                return albums.sorted { $0.name < $1.name }
+            case .releaseDate:
+                return albums.sorted { $0.releaseDate < $1.releaseDate }
         }
     }
 }

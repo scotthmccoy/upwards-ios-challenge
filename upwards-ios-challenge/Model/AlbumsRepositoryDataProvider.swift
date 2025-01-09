@@ -53,6 +53,7 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                 
                 return ret
                 
+            // Useful for previews
             case .hardCoded:
                 let albums = [
                     Album(

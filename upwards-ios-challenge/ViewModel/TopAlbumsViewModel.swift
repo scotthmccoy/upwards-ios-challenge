@@ -24,8 +24,8 @@ class TopAlbumsViewModel: ObservableObject {
     ) {
         self.albumsRepository = albumsRepository
         
+        // Listen for updates from repository
         albumsSubscription = albumsRepository.albumsPublisher.sink { newValue in
-            
             Task {
                 await MainActor.run {
                     self.albums = newValue
@@ -37,5 +37,7 @@ class TopAlbumsViewModel: ObservableObject {
     func menuTapped(albumSortOrder: AlbumSortOrder) {
         AppLog("albumSortOrder: \(albumSortOrder)")
         self.albumSortOrder = albumSortOrder
+
+        albumsRepository.albumSortOrder = albumSortOrder
     }
 }
