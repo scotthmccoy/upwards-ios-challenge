@@ -14,9 +14,11 @@ struct AlbumCellView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Image("DarkSideOfTheMoon")
-                .resizable()
-                .scaledToFit()
+
+            CachedAsyncImage(url: album.artworkUrl) { result in
+                result.image?.resizable()
+            }
+            .scaledToFit()
                     
             VStack(alignment: .leading) {
                 Text(album.name)
