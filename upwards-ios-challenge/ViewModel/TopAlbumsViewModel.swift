@@ -14,7 +14,11 @@ class TopAlbumsViewModel: ObservableObject {
     @Published var albums: [Album] = []
     @Published var sortOrders = AlbumSortOrder.allCases
     @Published var albumSortOrder = AlbumSortOrder.title
-    
+    @Published var searchString = "" {
+        didSet {
+            albums = applySearch(albums: albumsRepository.albums)
+        }
+    }
     
     private var albumsRepository: AlbumsRepositoryProtocol
     private var albumsSubscription: AnyCancellable?
@@ -28,7 +32,7 @@ class TopAlbumsViewModel: ObservableObject {
         albumsSubscription = albumsRepository.albumsPublisher.sink { newValue in
             Task {
                 await MainActor.run {
-                    self.albums = newValue
+                    self.albums = self.applySearch(albums: newValue)
                 }
             }
         }
@@ -39,5 +43,21 @@ class TopAlbumsViewModel: ObservableObject {
         self.albumSortOrder = albumSortOrder
 
         albumsRepository.albumSortOrder = albumSortOrder
+    }
+    
+    func applySearch(albums: [Album]) -> [Album] {
+        guard searchString != "" else {
+            return albums
+        }
+        
+        return albums.filter {
+            // TODO: This is a lot of string manipulation. Maybe add a searchfield to Album that contains
+            // a lower cased version of all these fields concatenated together.
+            $0.name.lowercased().contains(searchString.lowercased()) ||
+            $0.artistName.lowercased().contains(searchString.lowercased()) ||
+            $0.genres.contains {
+                $0.lowercased().contains(searchString.lowercased())
+            }
+        }
     }
 }
