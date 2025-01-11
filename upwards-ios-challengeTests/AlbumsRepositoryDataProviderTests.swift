@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Scootys_Unit_Testing
 @testable import upwards_ios_challenge
 
 final class AlbumsRepositoryDataProviderTests: XCTestCase {
@@ -14,5 +15,6 @@ final class AlbumsRepositoryDataProviderTests: XCTestCase {
         let sut = AlbumsRepositoryDataProvider(.live)
         let result = await sut.get()
         let albums = try! result.get()
+        print("swiftInitStatement: \(albums.swiftInitStatement!)")
     }
 }

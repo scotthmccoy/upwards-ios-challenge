@@ -75,7 +75,7 @@ struct TopAlbumsView: View {
         TopAlbumsView(
             topAlbumsViewModel: TopAlbumsViewModel(
                 albumsRepository: AlbumsRepository(
-                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.hardCoded)
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.mainBundleTestData)
                 )
             )
         )

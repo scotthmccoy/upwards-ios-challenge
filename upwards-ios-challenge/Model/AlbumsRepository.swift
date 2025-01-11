@@ -37,7 +37,7 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     private let albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol
     
     init(
-        albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol = AlbumsRepositoryDataProvider(.live)
+        albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol = AlbumsRepositoryDataProvider(.mainBundleTestData)
     ) {
         AppLog()
         self.albumsRepositoryDataProvider = albumsRepositoryDataProvider

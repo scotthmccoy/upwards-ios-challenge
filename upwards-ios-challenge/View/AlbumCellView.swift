@@ -43,6 +43,8 @@ struct AlbumCellView: View {
                     .foregroundStyle(Color("CellFont"))
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
+                
+                Text(album.genres.joined(separator: ","))
             }
             .padding(10)
             
@@ -92,7 +94,7 @@ struct AlbumCellView: View {
         TopAlbumsView(
             topAlbumsViewModel: TopAlbumsViewModel(
                 albumsRepository: AlbumsRepository(
-                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.hardCoded)
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.mainBundleTestData)
                 )
             )
         )

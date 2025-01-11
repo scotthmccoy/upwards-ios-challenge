@@ -20,7 +20,8 @@ extension Album: Stubbable {
             id: "abc123",
             name: "Album Name",
             artistName: "Artist Name",
-            releaseDate: Date(iso8601: "2025-01-01T00:00:00")!
+            releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,
+            genres: []
         )
     }
 }

@@ -38,7 +38,7 @@ struct AlbumDataObject: Decodable {
     var artistName: String?
     var id: String?
     var name: String?
-    var releaseDate: Date? // Note: In format "YYYY-MM-DD"
+    var releaseDate: Date? // Note: In format "YYYY-MM-DD". Why did Apple not use iso8601??
     var kind: String?
     var artistId: String?
     var artistUrl: String?
@@ -52,14 +52,19 @@ struct AlbumDataObject: Decodable {
         guard let id, let name, let artworkUrl100, let artistName, let releaseDate else {
             return nil
         }
-
+        
+        // Extract genre names
+        let genres = genres?.compactMap {
+            $0.name
+        } ?? []
         
         return Album(
             id: id,
             name: name,
             artworkUrl: URL(string: artworkUrl100),
             artistName: artistName,
-            releaseDate: releaseDate
+            releaseDate: releaseDate,
+            genres: genres
         )
     }
 }
