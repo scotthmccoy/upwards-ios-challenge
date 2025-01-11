@@ -14,4 +14,11 @@ struct Album: Hashable {
     var artworkUrl: URL?
     var artistName: String
     var releaseDate: Date
+    
+    func isNew(
+        today: Date = Date(),
+        days: Int = 30
+    ) -> Bool {
+        releaseDate.inTheLast(days: days, today: today)
+    }
 }

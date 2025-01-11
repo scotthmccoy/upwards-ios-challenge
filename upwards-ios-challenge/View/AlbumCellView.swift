@@ -24,6 +24,29 @@ struct AlbumCellView: View {
                 }
             }
             .scaledToFit()
+            .overlay {
+                if album.isNew() {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("NEW")
+                                .font(.headline)
+                                .foregroundStyle(Color("NewFont"))
+                                .padding(3)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .fill(.white)
+                                        
+                                        
+                                        
+                                }
+                                
+                                .padding()
+                        }
+                        Spacer()
+                    }
+                }
+            }
             
                     
             VStack(alignment: .leading) {
