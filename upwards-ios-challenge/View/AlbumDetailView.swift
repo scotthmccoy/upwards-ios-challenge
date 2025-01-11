@@ -38,8 +38,7 @@ struct AlbumDetailView: View {
                     .foregroundStyle(Color("CellFont"))
             }
         }
-        .navigationBarBackground()
-        
+        .navBarStyling(title: "")
     }
     
 }

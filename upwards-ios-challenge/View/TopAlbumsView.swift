@@ -37,23 +37,7 @@ struct TopAlbumsView: View {
             .padding(10)
         }
         .background(Color("Background"))
-        .navigationBarBackground()
-        .navigationBarTitle("Top Albums", displayMode: .inline)
-//        
-//        // Nav Bar Text Color
-//        .toolbarColorScheme(.dark, for: .navigationBar)
-//        
-//        // Nav Bar Background color
-//        .toolbarBackground(
-//            .visible,
-//            for: .automatic
-//        )
-//        
-//        .toolbarBackground(
-//            Color("NavBar"),
-//            for: .automatic
-//        )
-
+        .navBarStyling(title: "Top Albums")
         .toolbar {
             HStack {
                 btnSort

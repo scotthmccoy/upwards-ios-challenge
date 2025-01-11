@@ -30,10 +30,12 @@ struct AlbumCellView: View {
                 Text(album.name)
                     .font(.headline)
                     .foregroundStyle(Color("CellFont"))
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
                 
                 Text(album.artistName)
                     .foregroundStyle(Color("CellFont"))
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
             }
             .padding(10)

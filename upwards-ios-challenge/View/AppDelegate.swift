@@ -15,6 +15,7 @@ struct UpwardsChallengeApp: App {
         WindowGroup {
             NavigationStack {
                 TopAlbumsView()
+                    .preferredColorScheme(.dark)
             }
         }
     }
