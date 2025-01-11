@@ -12,7 +12,8 @@ struct AlbumCellView: View {
     // Note: No need for viewModel since there are no edit events to handle
     let album: Album
     
-    @State private var newTagVisible = false // Controls opacity
+    // This bool is faded from false to true to control animation of the "NEW" tag
+    @State private var newTagAnimationComplete = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -66,16 +67,20 @@ struct AlbumCellView: View {
                             RoundedRectangle(cornerRadius: 5)
                                 .fill(.white)
                         }
-                        
                         .padding()
+                    
+                        // When a New tag appears, it should spin, scale up and fade into view.
+                        .opacity(newTagAnimationComplete ? 1 : 0) // Start hidden
+                        .rotationEffect(.degrees(newTagAnimationComplete ? 0 : 180))
+                        .scaleEffect(newTagAnimationComplete ? 1 : 0)
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                newTagAnimationComplete = true
+                            }
+                        }
+
                 }
                 Spacer()
-            }
-            .opacity(newTagVisible ? 1 : 0) // Start hidden
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    newTagVisible = true // Fade in
-                }
             }
         }
     }
