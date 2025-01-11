@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "96D43D4D-154B-4AAC-AC04-494600747CED",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:upwards-ios-challenge.xcodeproj",
+        "identifier" : "FAB9C2B42AF596DA00A3659D",
+        "name" : "upwards-ios-challengeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

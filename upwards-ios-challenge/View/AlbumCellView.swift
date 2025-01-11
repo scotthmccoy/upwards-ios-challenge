@@ -10,14 +10,23 @@ import SwiftUI
 struct AlbumCellView: View {
     
     // Note: No need for viewModel since there are no edit events to handle
-    let album: Album
+    @StateObject var albumCellViewModel: AlbumCellViewModel
     
     // This bool is faded from false to true to control animation of the "NEW" tag
     @State private var newTagAnimationComplete = false
     
+    init(album: Album) {
+        // Set the StateObject
+        _albumCellViewModel = StateObject(
+            wrappedValue: AlbumCellViewModel(
+                album: album
+            )
+        )
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
-            CachedAsyncImage(url: album.artworkUrl) { phase in
+            CachedAsyncImage(url: albumCellViewModel.album.artworkUrl) { phase in
                 switch phase {
                     case .success(let image):
                         image.resizable()
@@ -33,18 +42,23 @@ struct AlbumCellView: View {
             .transition(.opacity)
                     
             VStack(alignment: .leading) {
-                Text(album.name)
+                Text(albumCellViewModel.album.name)
                     .font(.headline)
                     .foregroundStyle(Color("CellFont"))
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                 
-                Text(album.artistName)
+                Text(albumCellViewModel.album.artistName)
+                    .font(.subheadline)
                     .foregroundStyle(Color("CellFont"))
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                 
-                Text(album.genres.joined(separator: ","))
+                Text(albumCellViewModel.genres)
+                    .font(.footnote)
+                    .foregroundStyle(Color("CellFont"))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(1)
             }
             .padding(10)
             
@@ -56,7 +70,7 @@ struct AlbumCellView: View {
     }
     
     @ViewBuilder func makeNewTag() -> some View {
-        if album.isNew() {
+        if albumCellViewModel.isNew() {
             // MARK: "New" overlay
             VStack {
                 HStack {

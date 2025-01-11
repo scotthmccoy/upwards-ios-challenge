@@ -15,13 +15,6 @@ struct Album {
     var artistName: String
     var releaseDate: Date
     var genres: [String]
-    
-    func isNew(
-        today: Date = Date(),
-        days: Int = 30
-    ) -> Bool {
-        releaseDate.inTheLast(days: days, today: today)
-    }
 }
 
 // Album support Hashable for easy display in SwiftUI and Encodable for .swiftInitStatement

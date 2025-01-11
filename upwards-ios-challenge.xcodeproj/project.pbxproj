@@ -27,6 +27,7 @@
 		57F720B82D31FE7000E79626 /* Stubbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720B72D31FE6C00E79626 /* Stubbable.swift */; };
 		57F720BA2D3227AE00E79626 /* APIResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 57F720B92D3227A400E79626 /* APIResponse.json */; };
 		57F720BC2D32282A00E79626 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720BB2D32282600E79626 /* CodableHelper.swift */; };
+		57F720C02D322FCC00E79626 /* AlbumCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720BF2D322FCC00E79626 /* AlbumCellViewModel.swift */; };
 		CED2A3DA26EFA7DD0093C1F3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3D926EFA7DD0093C1F3 /* Networking.swift */; };
 		CED2A3DE26EFA89C0093C1F3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3DD26EFA89C0093C1F3 /* Request.swift */; };
 		CED2A3E426EFA9610093C1F3 /* ITunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */; };
@@ -82,6 +83,9 @@
 		57F720B72D31FE6C00E79626 /* Stubbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbable.swift; sourceTree = "<group>"; };
 		57F720B92D3227A400E79626 /* APIResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = APIResponse.json; sourceTree = "<group>"; };
 		57F720BB2D32282600E79626 /* CodableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableHelper.swift; sourceTree = "<group>"; };
+		57F720BF2D322FCC00E79626 /* AlbumCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellViewModel.swift; sourceTree = "<group>"; };
+		57F720C52D3233EC00E79626 /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
+		57F720C62D32340D00E79626 /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		6BF2C92DCC29218ED3B71D0F /* Pods-upwards-ios-challengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upwards-ios-challengeTests.debug.xcconfig"; path = "Target Support Files/Pods-upwards-ios-challengeTests/Pods-upwards-ios-challengeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CED2A3D926EFA7DD0093C1F3 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		CED2A3DD26EFA89C0093C1F3 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				57F720832D2E168C00E79626 /* TopAlbumsViewModel.swift */,
+				57F720BF2D322FCC00E79626 /* AlbumCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -285,6 +290,8 @@
 				57F7207B2D2E0F6300E79626 /* Utility */,
 				57F7209A2D3076CC00E79626 /* Assets */,
 				CEE8745726E818C500A269DA /* Info.plist */,
+				57F720C52D3233EC00E79626 /* UnitTests.xctestplan */,
+				57F720C62D32340D00E79626 /* UITests.xctestplan */,
 			);
 			path = "upwards-ios-challenge";
 			sourceTree = "<group>";
@@ -525,6 +532,7 @@
 				57F720912D2E35DA00E79626 /* AlbumCellView.swift in Sources */,
 				57F720B22D31F68100E79626 /* Date.swift in Sources */,
 				CED2A3E826EFABD10093C1F3 /* APIRequest.swift in Sources */,
+				57F720C02D322FCC00E79626 /* AlbumCellViewModel.swift in Sources */,
 				57F7207D2D2E0F6B00E79626 /* AppLog.swift in Sources */,
 				57F720942D2F0A0A00E79626 /* SortOrder.swift in Sources */,
 				57F720BC2D32282A00E79626 /* CodableHelper.swift in Sources */,

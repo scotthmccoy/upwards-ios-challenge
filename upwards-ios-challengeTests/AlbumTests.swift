@@ -7,13 +7,14 @@
 
 import XCTest
 @testable import upwards_ios_challenge
-final class AlbumTests: XCTestCase {
+final class AlbumCellViewModelTests: XCTestCase {
 
-    func test() {
-        var sut = Album.stub
-        sut.releaseDate = Date(iso8601: "2025-01-01T00:00:00")!
+    @MainActor func testIsNew() {
+        var album = Album.stub
+        album.releaseDate = Date(iso8601: "2025-01-01T00:00:00")!
         let today = Date(iso8601: "2025-01-25T00:00:00")!
         
+        let sut = AlbumCellViewModel(album: album)
         XCTAssertTrue(sut.isNew(today: today))
     }
 }
