@@ -9,6 +9,11 @@
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "UNIT_TEST"
+      }
+    ],
     "targetForVariableExpansion" : {
       "containerPath" : "container:upwards-ios-challenge.xcodeproj",
       "identifier" : "CEE8744526E818C000A269DA",

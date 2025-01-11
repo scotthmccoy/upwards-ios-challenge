@@ -35,7 +35,7 @@
 		CED2A3E826EFABD10093C1F3 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E726EFABD10093C1F3 /* APIRequest.swift */; };
 		CED2A3EB26EFB7210093C1F3 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3EA26EFB7210093C1F3 /* APIError.swift */; };
 		CED2A3F526F017330093C1F3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3F426F017330093C1F3 /* Network.swift */; };
-		CEE8744A26E818C000A269DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE8744926E818C000A269DA /* AppDelegate.swift */; };
+		CEE8744A26E818C000A269DA /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE8744926E818C000A269DA /* App.swift */; };
 		CEE8745326E818C500A269DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE8745226E818C500A269DA /* Assets.xcassets */; };
 		CEE8745626E818C500A269DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE8745426E818C500A269DA /* LaunchScreen.storyboard */; };
 		FAB9C2AB2AF5940900A3659D /* AlbumsRepositoryDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9C2AA2AF5940900A3659D /* AlbumsRepositoryDataProviderTests.swift */; };
@@ -95,7 +95,7 @@
 		CED2A3EA26EFB7210093C1F3 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		CED2A3F426F017330093C1F3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CEE8744626E818C000A269DA /* upwards-ios-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "upwards-ios-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEE8744926E818C000A269DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CEE8744926E818C000A269DA /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEE8745226E818C500A269DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEE8745526E818C500A269DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEE8745726E818C500A269DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 		CED2A3ED26F000BF0093C1F3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CEE8744926E818C000A269DA /* AppDelegate.swift */,
+				CEE8744926E818C000A269DA /* App.swift */,
 				57F720802D2E160F00E79626 /* TopAlbumsView.swift */,
 				57F720902D2E35DA00E79626 /* AlbumCellView.swift */,
 				57F720A92D31E3D000E79626 /* AlbumDetailView.swift */,
@@ -525,7 +525,7 @@
 				57F720842D2E168C00E79626 /* TopAlbumsViewModel.swift in Sources */,
 				CED2A3E626EFAA5C0093C1F3 /* Album.swift in Sources */,
 				CED2A3EB26EFB7210093C1F3 /* APIError.swift in Sources */,
-				CEE8744A26E818C000A269DA /* AppDelegate.swift in Sources */,
+				CEE8744A26E818C000A269DA /* App.swift in Sources */,
 				57F720AE2D31E87300E79626 /* View.swift in Sources */,
 				57F720AA2D31E3D700E79626 /* AlbumDetailView.swift in Sources */,
 				57F720812D2E160F00E79626 /* TopAlbumsView.swift in Sources */,
