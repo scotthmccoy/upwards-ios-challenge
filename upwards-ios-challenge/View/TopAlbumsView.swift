@@ -27,28 +27,33 @@ struct TopAlbumsView: View {
                 spacing: 10
             ) {
                 ForEach(topAlbumsViewModel.albums, id: \.self) { album in
-                    AlbumCellView(album: album)
+                    NavigationLink(
+                        destination: AlbumDetailView(album: album)
+                    ) {
+                        AlbumCellView(album: album)
+                    }
                 }
             }
             .padding(10)
         }
         .background(Color("Background"))
+        .navigationBarBackground()
         .navigationBarTitle("Top Albums", displayMode: .inline)
-        
-        // Nav Bar Text Color
-        .toolbarColorScheme(.dark, for: .navigationBar)
-        
-        // Nav Bar Background color
-        .toolbarBackground(
-            Color("NavBar"),
-            for: .navigationBar
-        )
-        .toolbarBackground(
-            .visible,
-            for: .navigationBar
-        )
-        
-        // Actual toolbar
+//        
+//        // Nav Bar Text Color
+//        .toolbarColorScheme(.dark, for: .navigationBar)
+//        
+//        // Nav Bar Background color
+//        .toolbarBackground(
+//            .visible,
+//            for: .automatic
+//        )
+//        
+//        .toolbarBackground(
+//            Color("NavBar"),
+//            for: .automatic
+//        )
+
         .toolbar {
             HStack {
                 btnSort
