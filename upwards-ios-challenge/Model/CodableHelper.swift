@@ -8,7 +8,7 @@
 import Foundation
 
 // Stubbable Wrapper for JSONEncoder/JSONDecoder
-protocol CodableHelperProtocol {
+protocol CodableHelperProtocol: Sendable {
     func decode<T: Decodable>(
         type: T.Type,
         from data: Data,
@@ -59,7 +59,7 @@ public enum CodableHelperError: Error, CustomStringConvertible, Equatable {
     }
 }
 
-class CodableHelper: CodableHelperProtocol {
+final class CodableHelper: CodableHelperProtocol {
 
     // MARK: Data
     public func encode <T: Encodable>(

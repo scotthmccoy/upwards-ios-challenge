@@ -15,14 +15,14 @@ enum NetworkError: Error, Equatable {
 }
 
 
-protocol NetworkProtocol {
+protocol NetworkProtocol: Sendable {
     func requestData(
         urlRequest: URLRequest
     ) async -> Result<Data, NetworkError>
 }
 
 // Dependency Injection for URLSession
-protocol URLSessionProtocol {
+protocol URLSessionProtocol: Sendable {
     func data(
         for request: URLRequest,
         delegate: (any URLSessionTaskDelegate)?
@@ -33,7 +33,7 @@ extension URLSession: URLSessionProtocol {}
 
 final class Network: NetworkProtocol {
     private let decoder = JSONDecoder()
-    private var session: URLSessionProtocol
+    private let session: URLSessionProtocol
     
     init(
         session: URLSessionProtocol = URLSession.shared

@@ -317,7 +317,7 @@ public struct CachedAsyncImage<Content>: View where Content: View {
         do {
             if let urlRequest = urlRequest {
                 let (image, metrics) = try await remoteImage(from: urlRequest, session: urlSession)
-                if metrics.transactionMetrics.last?.resourceFetchType == .localCache {
+                if metrics?.transactionMetrics.last?.resourceFetchType == .localCache {
                     // WARNING: This does not behave well when the url is changed with another
                     phase = .success(image)
                 } else {
@@ -351,9 +351,11 @@ private extension AsyncImage {
 
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 private extension CachedAsyncImage {
-    private func remoteImage(from request: URLRequest, session: URLSession) async throws -> (Image, URLSessionTaskMetrics) {
+    private func remoteImage(from request: URLRequest, session: URLSession) async throws -> (Image, URLSessionTaskMetrics?) {
         let (data, _, metrics) = try await session.data(for: request)
-        if metrics.redirectCount > 0, let lastResponse = metrics.transactionMetrics.last?.response {
+        
+        // If there were any redirects, get the last response and store it in the urlCache
+        if let metrics, metrics.redirectCount > 0, let lastResponse = metrics.transactionMetrics.last?.response {
             let requests = metrics.transactionMetrics.map { $0.request }
             requests.forEach(session.configuration.urlCache!.removeCachedResponse)
             let lastCachedResponse = CachedURLResponse(response: lastResponse, data: data)
@@ -386,21 +388,24 @@ private extension CachedAsyncImage {
 
 // MARK: - AsyncImageURLSession
 
-private class URLSessionTaskController: NSObject, URLSessionTaskDelegate {
+private final class URLSessionTaskController: NSObject, URLSessionTaskDelegate {
     
-    var metrics: URLSessionTaskMetrics?
+    @MainActor var metrics: URLSessionTaskMetrics?
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-        self.metrics = metrics
+        Task { @MainActor in
+            self.metrics = metrics
+        }
     }
 }
 
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 private extension URLSession {
     
-    func data(for request: URLRequest) async throws -> (Data, URLResponse, URLSessionTaskMetrics) {
+    func data(for request: URLRequest) async throws -> (Data, URLResponse, URLSessionTaskMetrics?) {
         let controller = URLSessionTaskController()
         let (data, response) = try await data(for: request, delegate: controller)
-        return (data, response, controller.metrics!)
+        let metrics = await controller.metrics
+        return (data, response, metrics)
     }
 }

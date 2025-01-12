@@ -12,7 +12,6 @@ import Combine
 class TopAlbumsViewModel: ObservableObject {
     
     @Published var albums: [Album] = []
-    @Published var sortOrders = AlbumSortOrder.allCases
     @Published var albumSortOrder = AlbumSortOrder.title
     @Published var searchString = "" {
         didSet {

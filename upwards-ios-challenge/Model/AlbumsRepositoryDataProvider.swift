@@ -17,7 +17,7 @@ enum AlbumsRepositoryDataProviderSource {
     case mainBundleTestData
 }
 
-protocol AlbumsRepositoryDataProviderProtocol {
+protocol AlbumsRepositoryDataProviderProtocol: Sendable {
     func get() async -> Result<[Album], AlbumsRepositoryDataProviderError>
 }
 

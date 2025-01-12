@@ -41,19 +41,19 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     ) {
         AppLog()
         self.albumsRepositoryDataProvider = albumsRepositoryDataProvider
-        fetchAlbums()
+        Task {
+            await fetchAlbums()
+        }
     }
 
 
-    func fetchAlbums() {
-        Task {
-            guard let albums = await albumsRepositoryDataProvider.get().getSuccessOrLogError() else {
-                return
-            }
-            
-            self.albums = albums
-            AppLog("albums: \(albums)")
+    func fetchAlbums() async {
+        guard let albums = await albumsRepositoryDataProvider.get().getSuccessOrLogError() else {
+            return
         }
+        
+        self.albums = albums
+        AppLog("albums: \(albums)")
     }
     
     // Sadly the API doesn't support sorting, so we have to sort the objects ourselves

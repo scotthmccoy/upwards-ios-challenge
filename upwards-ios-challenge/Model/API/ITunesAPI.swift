@@ -15,9 +15,9 @@ enum ItunesAPIError: Error {
 
 // The API sadly only takes a limit arg, not a sort-ordering one.
 // https://rss.applemarketingtools.com/
-final class ITunesAPI {
+final class ITunesAPI: Sendable {
 
-    static let singleton = ITunesAPI(network: Network())
+    static let singleton = ITunesAPI()
     
     static let baseURL = "https://rss.applemarketingtools.com"
     
