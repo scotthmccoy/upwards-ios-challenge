@@ -724,6 +724,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C25K9LS5G2;
 				INFOPLIST_FILE = "upwards-ios-challenge/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Upwards Music";
 				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -745,6 +746,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C25K9LS5G2;
 				INFOPLIST_FILE = "upwards-ios-challenge/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Upwards Music";
 				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
