@@ -14,6 +14,8 @@ struct TopAlbumsView: View {
     // This records which albums have been displayed so that the album appearance animation
     // only plays once per album
     @State private var albumsAppeared: Set<Album> = []
+    @State var sortPopOverIsPresented = false
+    @State var loadingAnimationBegun = false
     
     // Make a 2-column grid
     private let columns = [
@@ -22,29 +24,7 @@ struct TopAlbumsView: View {
     ]
     
     var body: some View {
-        ScrollView() {
-            LazyVGrid(
-                columns: [
-                    GridItem(.flexible(), alignment: .top),
-                    GridItem(.flexible(), alignment: .top)
-                ],
-                alignment: .leading,
-                spacing: 10
-            ) {
-                ForEach(topAlbumsViewModel.albums, id: \.self) { album in
-                    NavigationLink(
-                        destination: AlbumDetailView(album: album)
-                    ) {
-                        makeCell(album: album)
-                    }
-                }
-            }
-            // Add a search bar to the nav bar
-            .searchable(
-                text: $topAlbumsViewModel.searchString
-            )
-            .padding(10)
-        }
+        scrollView
         .background(Color("Background"))
         .navBarStyling(title: "Top Albums")
         .toolbar {
@@ -54,7 +34,8 @@ struct TopAlbumsView: View {
         }
     }
     
-    @State var sortPopOverIsPresented = false
+    
+    
     var btnSort : some View {
         // NOTE: I'd rather use a picker but a Menu is much easier to style
         VStack {
@@ -78,6 +59,60 @@ struct TopAlbumsView: View {
     }
     
     @ViewBuilder
+    var scrollView: some View {
+        if topAlbumsViewModel.albums.count > 0 {
+            ScrollView() {
+                LazyVGrid(
+                    columns: [
+                        GridItem(.flexible(), alignment: .top),
+                        GridItem(.flexible(), alignment: .top)
+                    ],
+                    alignment: .leading,
+                    spacing: 10
+                ) {
+                    ForEach(topAlbumsViewModel.albums, id: \.self) { album in
+                        NavigationLink(
+                            destination: AlbumDetailView(album: album)
+                        ) {
+                            makeCell(album: album)
+                        }
+                    }
+                }
+                // Add a search bar to the nav bar
+                .searchable(
+                    text: $topAlbumsViewModel.searchString
+                )
+                .padding(10)
+            }
+        } else {
+            ProgressView() {
+                Text("Loading...")
+                    .foregroundStyle(Color("CellFont"))
+                
+                    // Have the text rotate like a see-saw
+                    .rotationEffect(.degrees(loadingAnimationBegun ? -35 : 35))
+                    .animation(
+                        // Animate for 1 second, reverse, and repeat
+                        .easeInOut(
+                            duration: 1
+                        )
+                        .repeatForever(
+                            autoreverses: true
+                        ),
+                        value: loadingAnimationBegun
+                    )
+                    .onAppear {
+                        loadingAnimationBegun = true
+                    }
+            }
+            .progressViewStyle(.circular)
+            .tint(.white)
+            .scaleEffect(3.0)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+    
+    @ViewBuilder
     func makeCell(album: Album) -> some View {
         AlbumCellView(album: album)
             // When cells appear, scale them up and fade them in
@@ -95,6 +130,7 @@ struct TopAlbumsView: View {
     }
     
     
+    
 }
 
 
@@ -103,7 +139,7 @@ struct TopAlbumsView: View {
         TopAlbumsView(
             topAlbumsViewModel: TopAlbumsViewModel(
                 albumsRepository: AlbumsRepository(
-                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.mainBundleTestData)
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.empty)
                 )
             )
         )

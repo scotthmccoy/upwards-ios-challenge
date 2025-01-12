@@ -15,6 +15,7 @@ enum AlbumsRepositoryDataProviderError: Error, Equatable {
 enum AlbumsRepositoryDataProviderSource {
     case live
     case mainBundleTestData
+    case empty
 }
 
 protocol AlbumsRepositoryDataProviderProtocol: Sendable {
@@ -77,6 +78,10 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                 }
                 
                 return result
+
+            case .empty:
+                
+                return .success([])
         }
         
 
