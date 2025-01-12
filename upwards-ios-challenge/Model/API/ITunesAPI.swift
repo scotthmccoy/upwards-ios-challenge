@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ItunesAPIError: Error {
+enum ItunesAPIError: Error, Equatable {
     case apiRequestError(APIRequestError)
     case networkError(NetworkError)
     case codableHelperError(CodableHelperError)

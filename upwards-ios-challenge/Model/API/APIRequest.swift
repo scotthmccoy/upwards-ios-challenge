@@ -11,7 +11,7 @@ protocol APIRequestProtocol: CustomStringConvertible {
     func asURLRequest() -> Result<URLRequest, APIRequestError>
 }
 
-enum APIRequestError: Error {
+enum APIRequestError: Error, Equatable {
     case invalidUrl(String)
 }
 

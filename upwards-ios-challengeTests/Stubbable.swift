@@ -13,15 +13,49 @@ public protocol Stubbable {
     static var stub: Self {get}
 }
 
+extension APIResponseDataObject: Stubbable {
+    public static var stub: Self {
+        APIResponseDataObject(
+            feed: FeedDataObject(
+                results: [
+                    AlbumDataObject(
+                        artistName: Album.stub.artistName,
+                        id: Album.stub.id,
+                        name: Album.stub.name,
+                        releaseDate: Album.stub.releaseDate,
+                        kind: "Kind",
+                        artistId: "abc123",
+                        artistUrl: URL.stub.absoluteString,
+                        contentAdvisoryRating: "contentAdvisoryRating",
+                        artworkUrl100: Album.stub.artworkUrl?.absoluteString,
+                        genres: [
+                            GenreDataObject(
+                                name: Album.stub.genres[0]
+                            ),
+                            GenreDataObject(
+                                name: Album.stub.genres[1]
+                            ),
+                        ]
+                    )
+                ]
+            )
+        )
+    }
+
+}
 
 extension Album: Stubbable {
     public static var stub: Self {
         Album(
             id: "abc123",
             name: "Album Name",
+            artworkUrl: URL.stub,
             artistName: "Artist Name",
             releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,
-            genres: []
+            genres: [
+                "Hip-Hop",
+                "Pop"
+            ]
         )
     }
 }
@@ -54,3 +88,4 @@ extension Data: Stubbable {
         "Foo".data(using: .utf8)!
     }
 }
+
