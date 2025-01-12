@@ -95,9 +95,12 @@ struct TopAlbumsView: View {
                 }
                 // Add a search bar to the nav bar
                 .searchable(
-                    text: $topAlbumsViewModel.searchString
+                    text: $topAlbumsViewModel.searchString,
+                    placement: .navigationBarDrawer(displayMode: .always)
                 )
                 .padding(10)
+            }.refreshable {
+                topAlbumsViewModel.refresh()
             }
         } else {
             ProgressView() {
@@ -143,9 +146,6 @@ struct TopAlbumsView: View {
                 }
             }
     }
-    
-    
-    
 }
 
 
@@ -154,7 +154,7 @@ struct TopAlbumsView: View {
         TopAlbumsView(
             topAlbumsViewModel: TopAlbumsViewModel(
                 albumsRepository: AlbumsRepository(
-                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.alwaysFail)
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.mainBundleTestData)
                 )
             )
         )

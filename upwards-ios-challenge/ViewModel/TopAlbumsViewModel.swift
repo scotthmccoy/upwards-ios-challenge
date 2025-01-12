@@ -51,6 +51,10 @@ class TopAlbumsViewModel: ObservableObject {
     }
     
     func btnTryAgainTapped() {
+        refresh()
+    }
+    
+    func refresh() {
         self.errorMessage = nil
         Task {
             await albumsRepository.fetchAlbums()
