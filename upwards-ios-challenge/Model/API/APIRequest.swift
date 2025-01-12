@@ -7,28 +7,28 @@
 
 import Foundation
 
-struct APIRequest: Request {
+protocol APIRequestProtocol: CustomStringConvertible {
+    func asURLRequest() -> Result<URLRequest, APIRequestError>
+}
 
-    var url: String
+enum APIRequestError: Error {
+    case invalidUrl(String)
+}
+
+struct APIRequest: APIRequestProtocol {
+
+    var urlString: String
     var method: HTTPMethod = .get
     var headers: [String: String]? = nil
-    var params: [URLQueryItem]?
     var body: Data? = nil
 
-    func asURLRequest() -> Result<URLRequest, APIError> {
+    func asURLRequest() -> Result<URLRequest, APIRequestError> {
         
-        guard let apiURL = URL(string: url) else {
-            return .failure(.invalidUrl(url))
-        }
-        
-        var urlComponents = URLComponents(url: apiURL, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = params
-        
-        guard let requestURL = urlComponents?.url else {
-            return .failure(.invalidUrl(url))
+        guard let url = URL(string: urlString) else {
+            return .failure(.invalidUrl(urlString))
         }
 
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -39,6 +39,6 @@ struct APIRequest: Request {
     }
     
     var description: String {
-        "\(method) - \(url)"
+        "\(method) - \(urlString)"
     }
 }

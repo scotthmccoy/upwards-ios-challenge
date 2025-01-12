@@ -6,81 +6,57 @@
 //
 
 import Foundation
-import os.log
+
+enum NetworkError: Error {
+    case invalidUrl(String)
+    case invalidRequest(APIRequestProtocol)
+    case dataTaskError(Error)
+    case invalidResponse
+    case badStatusCode(Int)
+}
 
 
+protocol NetworkProtocol {
+    func requestData(
+        urlRequest: URLRequest
+    ) async -> Result<Data, NetworkError>
+}
 
-final class Network: NSObject, Networking, URLSessionDelegate {
-    
+final class Network: NetworkProtocol {
     private let sessionConfig: URLSessionConfiguration
     private let decoder = JSONDecoder()
-    private lazy var session: URLSession = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: nil)
+    private lazy var session: URLSession = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
     
-    init(sessionConfig: URLSessionConfiguration) {
+    init(
+        sessionConfig: URLSessionConfiguration = URLSessionConfiguration.default
+    ) {
         self.sessionConfig = sessionConfig
-        super.init()
-        configureDecoder()
-    }
-    
-    func requestObject<T: Decodable>(_ request: Request, completion: @escaping (Result<T, APIError>) -> ()) {
-        requestData(request) { res in
-            completion(
-                res.flatMap { data in
-                    Result {
-                        try self.decoder.decode(T.self, from: data)
-                    }.mapError {
-                        APIError.decodingError($0)
-                    }
-                }
-            )
-        }
     }
     
     func requestData(
-        _ request: Request,
-        completion: @escaping (Result<Data, APIError>) -> ()
-    ) {
-        
-        guard let urlRequest = request.asURLRequest().getSuccessOrLogError() else {
-            return
-        }
+        urlRequest: URLRequest
+    ) async -> Result<Data, NetworkError> {
         
         AppLog("urlRequest: \(urlRequest)")
-        
-        let task = session.dataTask(
-            with: urlRequest
-        ) { (data, res, err) in
-            guard
-                let httpResponse = res as? HTTPURLResponse,
-                let d = data,
-                (200..<300) ~= httpResponse.statusCode
-            else {
-                completion(.failure(APIError.noResponse))
-                return
-            }
-            
-            completion(.success(d))
-        }
-        task.resume()
-    }
-    
-    // TODO: This could probably be folded into Codable's existing date formatting
-    private func configureDecoder() {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
-            let container = try decoder.singleValueContainer()
-            let dateStr = try container.decode(String.self)
 
-            formatter.dateFormat = "yyyy-MM-dd"
-            if let date = formatter.date(from: dateStr) {
-                return date
-            }
-            
-            throw APIError.invalidDate(dateStr)
-        })
+        // Get Data
+        let urlSessionResult = await Result.asyncCatching {
+            try await session.data(for: urlRequest)
+        }
+
+        guard case let .success((data, urlResponse)) = urlSessionResult else {
+            return .failure(.dataTaskError(urlSessionResult.error!))
+        }
+
+        guard let httpResponse = urlResponse as? HTTPURLResponse else {
+            return .success(data)
+        }
+        
+        // Handle HTTPURLResponse
+        guard (200..<300) ~= httpResponse.statusCode else {
+            return .failure(.badStatusCode(httpResponse.statusCode))
+        }
+        
+        return .success(data)
     }
 }

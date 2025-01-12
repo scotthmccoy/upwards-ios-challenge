@@ -28,12 +28,10 @@
 		57F720BA2D3227AE00E79626 /* APIResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 57F720B92D3227A400E79626 /* APIResponse.json */; };
 		57F720BC2D32282A00E79626 /* CodableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720BB2D32282600E79626 /* CodableHelper.swift */; };
 		57F720C02D322FCC00E79626 /* AlbumCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F720BF2D322FCC00E79626 /* AlbumCellViewModel.swift */; };
-		CED2A3DA26EFA7DD0093C1F3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3D926EFA7DD0093C1F3 /* Networking.swift */; };
 		CED2A3DE26EFA89C0093C1F3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3DD26EFA89C0093C1F3 /* Request.swift */; };
 		CED2A3E426EFA9610093C1F3 /* ITunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */; };
 		CED2A3E626EFAA5C0093C1F3 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E526EFAA5C0093C1F3 /* Album.swift */; };
 		CED2A3E826EFABD10093C1F3 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3E726EFABD10093C1F3 /* APIRequest.swift */; };
-		CED2A3EB26EFB7210093C1F3 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3EA26EFB7210093C1F3 /* APIError.swift */; };
 		CED2A3F526F017330093C1F3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED2A3F426F017330093C1F3 /* Network.swift */; };
 		CEE8744A26E818C000A269DA /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE8744926E818C000A269DA /* App.swift */; };
 		CEE8745326E818C500A269DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE8745226E818C500A269DA /* Assets.xcassets */; };
@@ -87,12 +85,10 @@
 		57F720C52D3233EC00E79626 /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		57F720C62D32340D00E79626 /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		6BF2C92DCC29218ED3B71D0F /* Pods-upwards-ios-challengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-upwards-ios-challengeTests.debug.xcconfig"; path = "Target Support Files/Pods-upwards-ios-challengeTests/Pods-upwards-ios-challengeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CED2A3D926EFA7DD0093C1F3 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		CED2A3DD26EFA89C0093C1F3 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAPI.swift; sourceTree = "<group>"; };
 		CED2A3E526EFAA5C0093C1F3 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		CED2A3E726EFABD10093C1F3 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
-		CED2A3EA26EFB7210093C1F3 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		CED2A3F426F017330093C1F3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CEE8744626E818C000A269DA /* upwards-ios-challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "upwards-ios-challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE8744926E818C000A269DA /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -227,7 +223,6 @@
 		CED2A3DC26EFA87F0093C1F3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				CED2A3D926EFA7DD0093C1F3 /* Networking.swift */,
 				CED2A3DD26EFA89C0093C1F3 /* Request.swift */,
 			);
 			path = Network;
@@ -238,7 +233,6 @@
 			children = (
 				CED2A3E326EFA9610093C1F3 /* ITunesAPI.swift */,
 				CED2A3E726EFABD10093C1F3 /* APIRequest.swift */,
-				CED2A3EA26EFB7210093C1F3 /* APIError.swift */,
 				CED2A3F426F017330093C1F3 /* Network.swift */,
 			);
 			path = API;
@@ -514,7 +508,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CED2A3DA26EFA7DD0093C1F3 /* Networking.swift in Sources */,
 				57F7207F2D2E107100E79626 /* Result.swift in Sources */,
 				CED2A3DE26EFA89C0093C1F3 /* Request.swift in Sources */,
 				CED2A3E426EFA9610093C1F3 /* ITunesAPI.swift in Sources */,
@@ -524,7 +517,6 @@
 				57F720992D306FFB00E79626 /* CachedAsyncImage.swift in Sources */,
 				57F720842D2E168C00E79626 /* TopAlbumsViewModel.swift in Sources */,
 				CED2A3E626EFAA5C0093C1F3 /* Album.swift in Sources */,
-				CED2A3EB26EFB7210093C1F3 /* APIError.swift in Sources */,
 				CEE8744A26E818C000A269DA /* App.swift in Sources */,
 				57F720AE2D31E87300E79626 /* View.swift in Sources */,
 				57F720AA2D31E3D700E79626 /* AlbumDetailView.swift in Sources */,
