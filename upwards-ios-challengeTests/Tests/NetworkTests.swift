@@ -8,7 +8,8 @@
 import Foundation
 import XCTest
 @testable import upwards_ios_challenge
-class NetworkTests: XCTestCase {
+
+class NetworkTests: XCTestCase, @unchecked Sendable {
     
     // Test Config
     var errorToThrow: Error?
