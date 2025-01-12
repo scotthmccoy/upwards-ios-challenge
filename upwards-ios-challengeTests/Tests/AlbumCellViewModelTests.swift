@@ -17,4 +17,11 @@ final class AlbumCellViewModelTests: XCTestCase {
         let sut = AlbumCellViewModel(album: album)
         XCTAssertTrue(sut.isNew(today: today))
     }
+    
+    @MainActor func testGenres() {
+        var album = Album.stub
+        album.genres = ["Music", "Foo", "Bar"]
+        let sut = AlbumCellViewModel(album: album)
+        XCTAssertEqual(sut.genres, "Foo, Bar")
+    }
 }
