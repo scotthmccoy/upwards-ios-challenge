@@ -9,12 +9,60 @@ import XCTest
 import Scootys_Unit_Testing
 @testable import upwards_ios_challenge
 
-final class AlbumsRepositoryDataProviderTests: XCTestCase {
+final class AlbumsRepositoryDataProviderTests: XCTestCase, @unchecked Sendable {
 
-    func test() async {
-        let sut = AlbumsRepositoryDataProvider(.live)
-        let result = await sut.get()
-        let albums = try! result.get()
-        print("swiftInitStatement: \(albums.swiftInitStatement!)")
+    func testLive() async {
+        // Configure test
+        let sut = AlbumsRepositoryDataProvider(
+            .live,
+            iTunesApi: self
+        )
+        
+        // Interact with sut
+        let actual = await sut.get()
+        
+        // Validate
+        let expected: Result<[Album], AlbumsRepositoryDataProviderError> = .success([.stub])
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testMainBundleTestData() async {
+        // Configure test
+        let sut = AlbumsRepositoryDataProvider(
+            .mainBundleTestData,
+            iTunesApi: self
+        )
+        
+        // Interact with sut
+        let actual = await sut.get()
+        
+        // Validate
+        let albums = [
+            Album(
+                id: "abc123",
+                name: "Bad Album",
+                artworkUrl: URL(string: "http://foo.com/bad.jpg"),
+                artistName: "Scott McCoy",
+                releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,
+                genres: [
+                    "Hip-Hop"
+                ]
+            ),
+            Album.stub
+        ]
+        let expected: Result<[Album], AlbumsRepositoryDataProviderError> = .success(albums)
+        
+        XCTAssertEqual(actual, expected)
+    }
+
+}
+
+extension AlbumsRepositoryDataProviderTests: ITunesAPIProtocol {
+    func getTopAlbums(url: URL, limit: Int) async -> Result<[Album], ItunesAPIError> {
+        return .success([Album.stub])
+    }
+    
+    func getTopAlbums(limit: Int) async -> Result<[Album], ItunesAPIError> {
+        return .success([Album.stub])
     }
 }

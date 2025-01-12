@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AlbumsRepositoryDataProviderError: Error {
+enum AlbumsRepositoryDataProviderError: Error, Equatable {
     case bundleError
     case itunesApiError(ItunesAPIError)
 }
@@ -25,11 +25,11 @@ protocol AlbumsRepositoryDataProviderProtocol: Sendable {
 final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
 
     let albumsRepositoryDataProviderSource: AlbumsRepositoryDataProviderSource
-    let iTunesApi: ITunesAPI
+    let iTunesApi: ITunesAPIProtocol
     
     init(
         _ albumsRepositoryDataProviderSource: AlbumsRepositoryDataProviderSource,
-        iTunesApi: ITunesAPI = ITunesAPI.singleton
+        iTunesApi: ITunesAPIProtocol = ITunesAPI.singleton
     ) {
         self.albumsRepositoryDataProviderSource = albumsRepositoryDataProviderSource
         self.iTunesApi = iTunesApi
@@ -67,7 +67,7 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                         name: "Bad Album",
                         artworkUrl: URL(string: "http://foo.com/bad.jpg"),
                         artistName: "Scott McCoy",
-                        releaseDate: Date(),
+                        releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,
                         genres: ["Hip-Hop"]
                     )
                     

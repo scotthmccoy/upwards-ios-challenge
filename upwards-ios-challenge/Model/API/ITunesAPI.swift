@@ -13,9 +13,35 @@ enum ItunesAPIError: Error, Equatable {
     case codableHelperError(CodableHelperError)
 }
 
+protocol ITunesAPIProtocol: Sendable {
+    func getTopAlbums(
+        limit: Int
+    ) async -> Result<[Album], ItunesAPIError>
+    
+    func getTopAlbums(
+        url: URL,
+        limit: Int
+    ) async -> Result<[Album], ItunesAPIError>
+}
+extension ITunesAPIProtocol {
+    func getTopAlbums() async -> Result<[Album], ItunesAPIError> {
+        await getTopAlbums(limit: 100)
+    }
+    
+    func getTopAlbums(
+        url: URL
+    ) async -> Result<[Album], ItunesAPIError> {
+        await getTopAlbums(
+            url: url,
+            limit: 100
+        )
+    }
+}
+
+
 // The API sadly only takes a limit arg, not a sort-ordering one.
 // https://rss.applemarketingtools.com/
-final class ITunesAPI: Sendable {
+final class ITunesAPI: ITunesAPIProtocol {
 
     static let singleton = ITunesAPI()
     
@@ -56,8 +82,8 @@ final class ITunesAPI: Sendable {
     
     // Alternative method. Uses any URL. Useful for loading from the Bundle.
     func getTopAlbums(
-        limit: Int = 100,
-        url: URL
+        url: URL,
+        limit: Int = 100
     ) async -> Result<[Album], ItunesAPIError> {
         
         let urlRequest = URLRequest(url: url)
