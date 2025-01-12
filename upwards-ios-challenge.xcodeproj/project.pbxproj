@@ -41,7 +41,6 @@
 		CEE8745626E818C500A269DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE8745426E818C500A269DA /* LaunchScreen.storyboard */; };
 		FAB9C2AB2AF5940900A3659D /* AlbumsRepositoryDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9C2AA2AF5940900A3659D /* AlbumsRepositoryDataProviderTests.swift */; };
 		FAB9C2B82AF596DA00A3659D /* upwards_ios_challengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9C2B72AF596DA00A3659D /* upwards_ios_challengeUITests.swift */; };
-		FAB9C2BA2AF596DA00A3659D /* upwards_ios_challengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9C2B92AF596DA00A3659D /* upwards_ios_challengeUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +107,6 @@
 		FAB9C2AA2AF5940900A3659D /* AlbumsRepositoryDataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRepositoryDataProviderTests.swift; sourceTree = "<group>"; };
 		FAB9C2B52AF596DA00A3659D /* upwards-ios-challengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "upwards-ios-challengeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB9C2B72AF596DA00A3659D /* upwards_ios_challengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upwards_ios_challengeUITests.swift; sourceTree = "<group>"; };
-		FAB9C2B92AF596DA00A3659D /* upwards_ios_challengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upwards_ios_challengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +320,6 @@
 			isa = PBXGroup;
 			children = (
 				FAB9C2B72AF596DA00A3659D /* upwards_ios_challengeUITests.swift */,
-				FAB9C2B92AF596DA00A3659D /* upwards_ios_challengeUITestsLaunchTests.swift */,
 			);
 			path = "upwards-ios-challengeUITests";
 			sourceTree = "<group>";
@@ -568,7 +565,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB9C2B82AF596DA00A3659D /* upwards_ios_challengeUITests.swift in Sources */,
-				FAB9C2BA2AF596DA00A3659D /* upwards_ios_challengeUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

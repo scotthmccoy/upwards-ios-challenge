@@ -25,6 +25,8 @@ protocol ITunesAPIProtocol: Sendable {
         limit: Int
     ) async -> Result<[Album], ItunesAPIError>
 }
+
+// Default Args
 extension ITunesAPIProtocol {
     func getTopAlbums() async -> Result<[Album], ItunesAPIError> {
         await getTopAlbums(limit: 100)
@@ -47,7 +49,7 @@ final class ITunesAPI: ITunesAPIProtocol {
 
     static let singleton = ITunesAPI()
     
-    static let baseURL = "https://rss.applemarketingtools.com"
+    @MainActor var baseUrlString = "https://rss.applemarketingtools.com"
     
     private let network: NetworkProtocol
     private let codableHelper: CodableHelperProtocol
@@ -68,8 +70,9 @@ final class ITunesAPI: ITunesAPIProtocol {
     ) async -> Result<[Album], ItunesAPIError> {
         
         // Create an APIRequest
+        let urlString = await "\(baseUrlString)/api/v2/us/music/most-played/\(limit)/albums.json"
         let apiRequest = APIRequest(
-            urlString: "\(Self.baseURL)/api/v2/us/music/most-played/\(limit)/albums.json"
+            urlString: urlString
         )
         
         // Convert to URLRequest
