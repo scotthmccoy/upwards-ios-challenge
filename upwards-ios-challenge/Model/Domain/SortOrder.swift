@@ -6,15 +6,19 @@
 //
 
 enum AlbumSortOrder: CaseIterable {
-    case title
     case releaseDate
+    case albumTitle
+    case artistName
+    case genre
 }
 
 extension AlbumSortOrder: CustomStringConvertible {
     var description: String {
         switch self {
-            case .title: return "Title"
-            case .releaseDate: return "Release Date"
+            case .releaseDate: return "New"
+            case .albumTitle: return "Album Title"
+            case .artistName: return "Artist"
+            case .genre: return "Genre"
         }
     }
 }

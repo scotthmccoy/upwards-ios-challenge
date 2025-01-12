@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Album
 struct Album {
     var id: String
-    var name: String
+    var title: String
     var artworkUrl: URL?
     var artistName: String
     var releaseDate: Date

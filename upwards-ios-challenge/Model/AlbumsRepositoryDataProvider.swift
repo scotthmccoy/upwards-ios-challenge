@@ -64,7 +64,7 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                     // If successful, ruin the first image so that the default image shows
                     let badAlbum = Album(
                         id: "abc123",
-                        name: "Bad Album",
+                        title: "Bad Album",
                         artworkUrl: URL(string: "http://foo.com/bad.jpg"),
                         artistName: "Scott McCoy",
                         releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,

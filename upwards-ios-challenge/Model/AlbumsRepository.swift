@@ -7,8 +7,6 @@
 
 import Foundation
 
-// AlbumsRepository is Observable, unlike AlbumsRepositoryActor (the source of truth).
-// It monitors AlbumsRepositoryDataProvider for changes and updates AlbumsRepositoryActor
 
 @MainActor
 protocol AlbumsRepositoryProtocol {
@@ -28,7 +26,7 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     var albumsPublished: Published<[Album]> {_albums}
     var albumsPublisher: Published<[Album]>.Publisher {$albums}
     
-    var albumSortOrder = AlbumSortOrder.title {
+    var albumSortOrder = AlbumSortOrder.albumTitle {
         didSet {
             albums = sort(albums: albums)
         }
@@ -60,10 +58,20 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     func sort(albums: [Album]) -> [Album] {
         
         switch albumSortOrder {
-            case .title:
-                return albums.sorted { $0.name < $1.name }
+            case .albumTitle:
+                return albums.sorted { $0.title < $1.title }
             case .releaseDate:
-                return albums.sorted { $0.releaseDate < $1.releaseDate }
+                return albums.sorted { $0.releaseDate > $1.releaseDate }
+            case .artistName:
+                return albums.sorted { $0.artistName < $1.artistName }
+            case .genre:
+                
+                // Lexicographic sorting via tuples - first genres, then resolve ties by name
+                return albums.sorted {
+                    ($0.genres.joined(), $0.title)
+                    <
+                    ($1.genres.joined(), $1.title)
+                }
         }
     }
 }

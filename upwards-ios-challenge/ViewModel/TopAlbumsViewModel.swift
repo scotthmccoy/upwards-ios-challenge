@@ -12,7 +12,7 @@ import Combine
 class TopAlbumsViewModel: ObservableObject {
     
     @Published var albums: [Album] = []
-    @Published var albumSortOrder = AlbumSortOrder.title
+    @Published var albumSortOrder = AlbumSortOrder.albumTitle
     @Published var searchString = "" {
         didSet {
             albums = applySearch(albums: albumsRepository.albums)
@@ -52,7 +52,7 @@ class TopAlbumsViewModel: ObservableObject {
         return albums.filter {
             // TODO: This is a lot of string manipulation. Maybe add a searchfield to Album that contains
             // a lower cased version of all these fields concatenated together.
-            $0.name.lowercased().contains(searchString.lowercased()) ||
+            $0.title.lowercased().contains(searchString.lowercased()) ||
             $0.artistName.lowercased().contains(searchString.lowercased()) ||
             $0.genres.contains {
                 $0.lowercased().contains(searchString.lowercased())

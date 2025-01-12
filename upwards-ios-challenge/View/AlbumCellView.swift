@@ -42,7 +42,7 @@ struct AlbumCellView: View {
             .transition(.opacity)
                     
             VStack(alignment: .leading) {
-                Text(albumCellViewModel.album.name)
+                Text(albumCellViewModel.album.title)
                     .font(.headline)
                     .foregroundStyle(Color("CellFont"))
                     .multilineTextAlignment(.leading)

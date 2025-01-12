@@ -21,7 +21,7 @@ extension APIResponseDataObject: Stubbable {
                     AlbumDataObject(
                         artistName: Album.stub.artistName,
                         id: Album.stub.id,
-                        name: Album.stub.name,
+                        name: Album.stub.title,
                         releaseDate: Album.stub.releaseDate,
                         kind: "Kind",
                         artistId: "abc123",

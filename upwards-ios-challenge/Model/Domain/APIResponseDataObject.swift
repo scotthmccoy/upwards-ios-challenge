@@ -60,7 +60,7 @@ struct AlbumDataObject: Decodable {
         
         return Album(
             id: id,
-            name: name,
+            title: name,
             artworkUrl: URL(string: artworkUrl100),
             artistName: artistName,
             releaseDate: releaseDate,

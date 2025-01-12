@@ -27,7 +27,7 @@ struct AlbumDetailView: View {
                     
             ScrollView {
                 VStack(alignment: .leading) {
-                    Text(album.name)
+                    Text(album.title)
                         .font(.headline)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(Color("CellFont"))
