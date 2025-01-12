@@ -10,6 +10,12 @@ import SwiftUI
 @main
 struct UpwardsChallengeApp: App {
     
+    init() {
+        AppLog("Launching...")
+        
+        // TODO: extract launch args to set API url
+    }
+    
     var isUnitTest : Bool {
         return ProcessInfo.processInfo.arguments.contains("UNIT_TEST")
     }

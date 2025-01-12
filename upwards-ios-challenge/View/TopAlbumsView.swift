@@ -24,19 +24,19 @@ struct TopAlbumsView: View {
     ]
     
     var body: some View {
-        scrollView
+        mainView
         .background(Color("Background"))
         .navBarStyling(title: "Top Albums")
         .toolbar {
             HStack {
-                btnSort
+                navBarSortButton
             }
         }
     }
     
     
     
-    var btnSort : some View {
+    var navBarSortButton : some View {
         // NOTE: I'd rather use a picker but a Menu is much easier to style
         VStack {
             Menu {
@@ -59,8 +59,23 @@ struct TopAlbumsView: View {
     }
     
     @ViewBuilder
-    var scrollView: some View {
-        if topAlbumsViewModel.albums.count > 0 {
+    var mainView: some View {
+        if let errorMessage = topAlbumsViewModel.errorMessage {
+            VStack {
+                Text("Network Error")
+                    .font(.largeTitle)
+                Button("Try Again") {
+                    topAlbumsViewModel.btnTryAgainTapped()
+                }
+                ScrollView {
+                    Text("Error message: \(errorMessage)")
+                        .font(.footnote)
+                        .padding(20)
+                }
+                .frame(maxHeight: 300)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if topAlbumsViewModel.albums.count > 0 {
             ScrollView() {
                 LazyVGrid(
                     columns: [
@@ -139,7 +154,7 @@ struct TopAlbumsView: View {
         TopAlbumsView(
             topAlbumsViewModel: TopAlbumsViewModel(
                 albumsRepository: AlbumsRepository(
-                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.empty)
+                    albumsRepositoryDataProvider: AlbumsRepositoryDataProvider(.alwaysFail)
                 )
             )
         )

@@ -18,9 +18,11 @@ class TopAlbumsViewModel: ObservableObject {
             albums = applySearch(albums: albumsRepository.albums)
         }
     }
+    @Published var errorMessage: String?
     
     private var albumsRepository: AlbumsRepositoryProtocol
     private var albumsSubscription: AnyCancellable?
+    private var errorMessageSubscription: AnyCancellable?
     
     init(
         albumsRepository: AlbumsRepositoryProtocol = AlbumsRepository.singleton
@@ -29,10 +31,14 @@ class TopAlbumsViewModel: ObservableObject {
         
         // Listen for updates from repository
         albumsSubscription = albumsRepository.albumsPublisher.sink { newValue in
-            Task {
-                await MainActor.run {
-                    self.albums = self.applySearch(albums: newValue)
-                }
+            Task { @MainActor in
+                self.albums = self.applySearch(albums: newValue)
+            }
+        }
+        
+        errorMessageSubscription = albumsRepository.errorMessagePublisher.sink { newValue in
+            Task { @MainActor in
+                self.errorMessage = newValue
             }
         }
     }
@@ -44,7 +50,14 @@ class TopAlbumsViewModel: ObservableObject {
         albumsRepository.albumSortOrder = albumSortOrder
     }
     
-    func applySearch(albums: [Album]) -> [Album] {
+    func btnTryAgainTapped() {
+        self.errorMessage = nil
+        Task {
+            await albumsRepository.fetchAlbums()
+        }
+    }
+    
+    private func applySearch(albums: [Album]) -> [Album] {
         guard searchString != "" else {
             return albums
         }

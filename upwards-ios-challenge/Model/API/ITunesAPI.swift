@@ -5,6 +5,8 @@
 //  Created by Alex Livenson on 9/13/21.
 //
 
+// ItunesAPI uses Network and CodableHelper to read json from a url and convert APIResponseDataObject to Albums
+
 import Foundation
 
 enum ItunesAPIError: Error, Equatable {

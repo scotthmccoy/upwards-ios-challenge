@@ -7,13 +7,20 @@
 
 import Foundation
 
+// AlbumsRepository is the source of truth for the rest of the application and interface to the model layer for ViewModels.
+// It is observable, provides Domain objects (Albums).
 
 @MainActor
 protocol AlbumsRepositoryProtocol {
     var albums: [Album] { get }
-    var albumsPublished: Published<[Album]> { get }
     var albumsPublisher: Published<[Album]>.Publisher { get }
+    
+    var errorMessage: String? { get }
+    var errorMessagePublisher: Published<String?>.Publisher { get }
+    
     var albumSortOrder: AlbumSortOrder {get set}
+    
+    func fetchAlbums() async
 }
 
 
@@ -23,8 +30,10 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     static let singleton = AlbumsRepository()
     
     @Published var albums = [Album]()
-    var albumsPublished: Published<[Album]> {_albums}
     var albumsPublisher: Published<[Album]>.Publisher {$albums}
+    
+    @Published var errorMessage: String? = nil
+    var errorMessagePublisher: Published<String?>.Publisher {$errorMessage}
     
     var albumSortOrder = AlbumSortOrder.albumTitle {
         didSet {
@@ -46,12 +55,14 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
 
 
     func fetchAlbums() async {
-        guard let albums = await albumsRepositoryDataProvider.get().getSuccessOrLogError() else {
-            return
+        AppLog()
+        let result = await albumsRepositoryDataProvider.get()
+        switch result {
+            case .success(let albums):
+                self.albums = sort(albums: albums)
+            case .failure(let albumRepositoryDataProviderError):
+                self.errorMessage = "\(albumRepositoryDataProviderError)"
         }
-        
-        self.albums = albums
-        AppLog("albums: \(albums)")
     }
     
     // Sadly the API doesn't support sorting, so we have to sort the objects ourselves
