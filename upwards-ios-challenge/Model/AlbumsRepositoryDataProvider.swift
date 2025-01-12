@@ -57,13 +57,26 @@ final class AlbumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol {
                 
                 let url = URL(fileURLWithPath: path)
                 
-                let ret = await iTunesApi.getTopAlbums(url: url).mapError {
+                let result = await iTunesApi.getTopAlbums(url: url).mapError {
                     // Wrap ItunesApiError
                     AlbumsRepositoryDataProviderError.itunesApiError($0)
+                }.map {
+                    // If successful, ruin the first image so that the default image shows
+                    let badAlbum = Album(
+                        id: "abc123",
+                        name: "Bad Album",
+                        artworkUrl: URL(string: "http://foo.com/bad.jpg"),
+                        artistName: "Scott McCoy",
+                        releaseDate: Date(),
+                        genres: ["Hip-Hop"]
+                    )
+                    
+                    var ret = $0
+                    ret.insert(badAlbum, at:0)
+                    return ret
                 }
                 
-                return ret
-                
+                return result
         }
         
 

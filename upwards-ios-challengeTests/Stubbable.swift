@@ -25,3 +25,32 @@ extension Album: Stubbable {
         )
     }
 }
+
+extension URL: Stubbable {
+    public static var stub: Self {
+        URL(string: "stub.com")!
+    }
+}
+
+extension URLRequest: Stubbable {
+    public static var stub: Self {
+        URLRequest(url: URL.stub)
+    }
+}
+
+extension HTTPURLResponse: Stubbable {
+    public static var stub: Self {
+        HTTPURLResponse(
+            url: URL.stub,
+            statusCode: 200,
+            httpVersion: nil,
+            headerFields: nil
+        )! as! Self
+    }
+}
+
+extension Data: Stubbable {
+    public static var stub: Self {
+        "Foo".data(using: .utf8)!
+    }
+}

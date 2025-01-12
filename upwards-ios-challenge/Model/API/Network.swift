@@ -7,10 +7,9 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
     case invalidUrl(String)
-    case invalidRequest(APIRequestProtocol)
-    case dataTaskError(Error)
+    case dataTaskError(String)
     case invalidResponse
     case badStatusCode(Int)
 }
@@ -22,15 +21,24 @@ protocol NetworkProtocol {
     ) async -> Result<Data, NetworkError>
 }
 
+// Dependency Injection for URLSession
+protocol URLSessionProtocol {
+    func data(
+        for request: URLRequest,
+        delegate: (any URLSessionTaskDelegate)?
+    ) async throws -> (Data, URLResponse)
+}
+extension URLSession: URLSessionProtocol {}
+
+
 final class Network: NetworkProtocol {
-    private let sessionConfig: URLSessionConfiguration
     private let decoder = JSONDecoder()
-    private lazy var session: URLSession = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+    private var session: URLSessionProtocol
     
     init(
-        sessionConfig: URLSessionConfiguration = URLSessionConfiguration.default
+        session: URLSessionProtocol = URLSession.shared
     ) {
-        self.sessionConfig = sessionConfig
+        self.session = session
     }
     
     func requestData(
@@ -41,11 +49,11 @@ final class Network: NetworkProtocol {
 
         // Get Data
         let urlSessionResult = await Result.asyncCatching {
-            try await session.data(for: urlRequest)
+            try await session.data(for: urlRequest, delegate: nil)
         }
 
         guard case let .success((data, urlResponse)) = urlSessionResult else {
-            return .failure(.dataTaskError(urlSessionResult.error!))
+            return .failure(.dataTaskError("\(urlSessionResult.error!)"))
         }
 
         guard let httpResponse = urlResponse as? HTTPURLResponse else {
