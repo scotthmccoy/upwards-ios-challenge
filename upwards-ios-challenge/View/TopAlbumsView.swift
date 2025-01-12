@@ -33,10 +33,110 @@ struct TopAlbumsView: View {
             }
         }
     }
+
     
+    @ViewBuilder
+    var mainView: some View {
+        if let errorMessage = topAlbumsViewModel.errorMessage {
+            show(errorMessage: errorMessage)
+        } else if topAlbumsViewModel.albums.count > 0 {
+            scrollView
+        } else {
+            loadingAnimation
+        }
+    }
     
+    var scrollView: some View {
+        ScrollView() {
+            LazyVGrid(
+                columns: [
+                    GridItem(.flexible(), alignment: .top),
+                    GridItem(.flexible(), alignment: .top)
+                ],
+                alignment: .leading,
+                spacing: 10
+            ) {
+                ForEach(topAlbumsViewModel.albums, id: \.self) { album in
+                    NavigationLink(
+                        destination: AlbumDetailView(album: album)
+                    ) {
+                        makeCell(album: album)
+                    }
+                }
+            }
+            // Add a search bar to the nav bar
+            .searchable(
+                text: $topAlbumsViewModel.searchString,
+                placement: .navigationBarDrawer(displayMode: .always)
+            )
+            .padding(10)
+        }.refreshable {
+            topAlbumsViewModel.refresh()
+        }
+    }
     
-    var navBarSortButton : some View {
+    @ViewBuilder
+    func makeCell(album: Album) -> some View {
+        AlbumCellView(album: album)
+            // When cells appear, scale them up and fade them in
+            .opacity(albumsAppeared.contains(album) ? 1 : 0)
+            .scaleEffect(albumsAppeared.contains(album) ? 1 : 0.2)
+            .rotation3DEffect(
+                Angle(degrees: albumsAppeared.contains(album) ? 0 : 180),
+                axis: (x: 0, y: 1, z: 0)
+            )
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    _ = albumsAppeared.insert(album)
+                }
+            }
+    }
+    
+    var loadingAnimation: some View {
+        ProgressView() {
+            Text("Loading...")
+                .foregroundStyle(Color("CellFont"))
+            
+                // Have the text rotate like a see-saw
+                .rotationEffect(.degrees(loadingAnimationBegun ? -35 : 35))
+                .animation(
+                    // Animate for 1 second, reverse, and repeat
+                    .easeInOut(
+                        duration: 1
+                    )
+                    .repeatForever(
+                        autoreverses: true
+                    ),
+                    value: loadingAnimationBegun
+                )
+                .onAppear {
+                    loadingAnimationBegun = true
+                }
+        }
+        .progressViewStyle(.circular)
+        .tint(.white)
+        .scaleEffect(3.0)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    func show(errorMessage: String) -> some View {
+        VStack {
+            Text("Network Error")
+                .font(.largeTitle)
+            Button("Try Again") {
+                topAlbumsViewModel.btnTryAgainTapped()
+            }
+            ScrollView {
+                Text("Error message: \(errorMessage)")
+                    .font(.footnote)
+                    .padding(20)
+            }
+            .frame(maxHeight: 300)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    var navBarSortButton: some View {
         // NOTE: I'd rather use a picker but a Menu is much easier to style
         VStack {
             Menu {
@@ -56,95 +156,6 @@ struct TopAlbumsView: View {
                     .frame(width: 30, height: 30)
             }.menuStyle(.borderlessButton)
         }
-    }
-    
-    @ViewBuilder
-    var mainView: some View {
-        if let errorMessage = topAlbumsViewModel.errorMessage {
-            VStack {
-                Text("Network Error")
-                    .font(.largeTitle)
-                Button("Try Again") {
-                    topAlbumsViewModel.btnTryAgainTapped()
-                }
-                ScrollView {
-                    Text("Error message: \(errorMessage)")
-                        .font(.footnote)
-                        .padding(20)
-                }
-                .frame(maxHeight: 300)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if topAlbumsViewModel.albums.count > 0 {
-            ScrollView() {
-                LazyVGrid(
-                    columns: [
-                        GridItem(.flexible(), alignment: .top),
-                        GridItem(.flexible(), alignment: .top)
-                    ],
-                    alignment: .leading,
-                    spacing: 10
-                ) {
-                    ForEach(topAlbumsViewModel.albums, id: \.self) { album in
-                        NavigationLink(
-                            destination: AlbumDetailView(album: album)
-                        ) {
-                            makeCell(album: album)
-                        }
-                    }
-                }
-                // Add a search bar to the nav bar
-                .searchable(
-                    text: $topAlbumsViewModel.searchString,
-                    placement: .navigationBarDrawer(displayMode: .always)
-                )
-                .padding(10)
-            }.refreshable {
-                topAlbumsViewModel.refresh()
-            }
-        } else {
-            ProgressView() {
-                Text("Loading...")
-                    .foregroundStyle(Color("CellFont"))
-                
-                    // Have the text rotate like a see-saw
-                    .rotationEffect(.degrees(loadingAnimationBegun ? -35 : 35))
-                    .animation(
-                        // Animate for 1 second, reverse, and repeat
-                        .easeInOut(
-                            duration: 1
-                        )
-                        .repeatForever(
-                            autoreverses: true
-                        ),
-                        value: loadingAnimationBegun
-                    )
-                    .onAppear {
-                        loadingAnimationBegun = true
-                    }
-            }
-            .progressViewStyle(.circular)
-            .tint(.white)
-            .scaleEffect(3.0)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
-    
-    @ViewBuilder
-    func makeCell(album: Album) -> some View {
-        AlbumCellView(album: album)
-            // When cells appear, scale them up and fade them in
-            .opacity(albumsAppeared.contains(album) ? 1 : 0)
-            .scaleEffect(albumsAppeared.contains(album) ? 1 : 0.2)
-            .rotation3DEffect(
-                Angle(degrees: albumsAppeared.contains(album) ? 0 : 180),
-                axis: (x: 0, y: 1, z: 0)
-            )
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    _ = albumsAppeared.insert(album)
-                }
-            }
     }
 }
 

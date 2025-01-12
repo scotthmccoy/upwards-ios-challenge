@@ -40,9 +40,9 @@ final class AlbumsRepositoryDataProviderTests: XCTestCase, @unchecked Sendable {
         let albums = [
             Album(
                 id: "abc123",
-                name: "Bad Album",
+                title: "Bad Album",
                 artworkUrl: URL(string: "http://foo.com/bad.jpg"),
-                artistName: "Scott McCoy",
+                artistName: "Scott McCoy 🤘🏻",
                 releaseDate: Date(iso8601: "2025-01-01T00:00:00")!,
                 genres: [
                     "Hip-Hop"

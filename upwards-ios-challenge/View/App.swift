@@ -10,15 +10,21 @@ import SwiftUI
 @main
 struct UpwardsChallengeApp: App {
     
+    var isUnitTest = false
+    var overrideNetworkUrl: String? = nil
+    
     init() {
         AppLog("Launching...")
+        #if DEBUG
         
-        // TODO: extract launch args to set API url
+        AppLog("Launch Args: \(ProcessInfo.processInfo.arguments)")
+        isUnitTest = ProcessInfo.processInfo.arguments.contains("UNIT_TEST")
+        
+        
+        
+        #endif
     }
     
-    var isUnitTest : Bool {
-        return ProcessInfo.processInfo.arguments.contains("UNIT_TEST")
-    }
 
     var body: some Scene {
         WindowGroup {
