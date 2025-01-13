@@ -154,6 +154,7 @@ struct TopAlbumsView: View {
                     .resizable()
                     .padding(6)
                     .frame(width: 30, height: 30)
+                    .accessibilityIdentifier("btnSort")
             }.menuStyle(.borderlessButton)
         }
     }

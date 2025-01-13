@@ -67,6 +67,8 @@ struct AlbumCellView: View {
         .frame(minHeight: 300)
         .background(Color("CellBackground"))
         .cornerRadius(20)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("AlbumViewCell")
     }
     
     @ViewBuilder func makeNewTag() -> some View {
@@ -94,6 +96,8 @@ struct AlbumCellView: View {
                                 newTagAnimationComplete = true
                             }
                         }
+                        .accessibilityElement(children: .contain)
+                        .accessibilityIdentifier("NewTag")
 
                 }
                 Spacer()

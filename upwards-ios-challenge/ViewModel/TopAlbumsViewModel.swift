@@ -43,6 +43,7 @@ class TopAlbumsViewModel: ObservableObject {
         }
     }
     
+    // MARK: - UI Events
     func menuTapped(albumSortOrder: AlbumSortOrder) {
         AppLog("albumSortOrder: \(albumSortOrder)")
         self.albumSortOrder = albumSortOrder
@@ -61,6 +62,7 @@ class TopAlbumsViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Private
     private func applySearch(albums: [Album]) -> [Album] {
         guard searchString != "" else {
             return albums

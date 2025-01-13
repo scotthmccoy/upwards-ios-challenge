@@ -43,6 +43,7 @@ final class AlbumsRepository: AlbumsRepositoryProtocol, ObservableObject {
     
     private let albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol
     
+    // MARK: - init
     init(
         albumsRepositoryDataProvider: AlbumsRepositoryDataProviderProtocol = AlbumsRepositoryDataProvider(.live)
     ) {

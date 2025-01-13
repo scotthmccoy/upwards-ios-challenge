@@ -9,9 +9,9 @@ import XCTest
 
 import Scootys_UI_Testing
 
-final class upwards_ios_challengeUITests: XCTestCase {
+final class NetworkFailureTest: XCTestCase {
 
-    func testNetworkFailure() {
+    func test() {
         let app = XCUIApplication()
         
         // Override the API URL to one that will cause an ATS failure
