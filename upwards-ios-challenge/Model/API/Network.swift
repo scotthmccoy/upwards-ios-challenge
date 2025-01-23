@@ -32,7 +32,6 @@ extension URLSession: URLSessionProtocol {}
 
 
 final class Network: NetworkProtocol {
-    private let decoder = JSONDecoder()
     private let session: URLSessionProtocol
     
     init(
